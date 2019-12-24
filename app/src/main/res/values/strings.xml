@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">TOP-100 cryptocurrency</string>
+    <string name="market_cap">Market Cap: $%d</string>
+    <string name="price">Price: $%d</string>
+</resources>
