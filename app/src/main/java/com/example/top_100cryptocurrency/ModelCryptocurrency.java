@@ -3,6 +3,8 @@ package com.example.top_100cryptocurrency;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+
 public class ModelCryptocurrency {
     @SerializedName("image")
     @Expose
