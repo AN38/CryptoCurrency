@@ -66,4 +66,14 @@ public class ModelCryptocurrency {
         this.current_price = current_price;
     }
 
+    @Override
+    public String toString() {
+        return "ModelCryptocurrency{" +
+                "imageUrl='" + imageUrl + '\'' +
+                ", symbol='" + symbol + '\'' +
+                ", name='" + name + '\'' +
+                ", marketCap=" + marketCap +
+                ", current_price=" + current_price +
+                '}';
+    }
 }

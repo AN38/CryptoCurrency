@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/currrency_logo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         tools:layout_width="50dp"
         tools:layout_height="50dp"
         app:layout_constraintTop_toTopOf="parent"

@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TableRow;
+import android.widget.Toast;
 
 import com.example.top_100cryptocurrency.network.NetworkInstance;
 
@@ -16,9 +18,11 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
+    private static final String TAG = "MainActivity11";
 
     private RecyclerView recyclerView;
     private AdapterCryptoCurrency adapterCryptoCurrency;
+    private int errorText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,22 +38,23 @@ public class MainActivity extends AppCompatActivity {
 
     private void getRequestedList() {
         NetworkInstance networkInstance = NetworkInstance.getInstance();
-        Call<ModelCryptocurrency> call = networkInstance.getCurrencyAPI().getCurrencyList(
+        Call<ArrayList<ModelCryptocurrency>> call = networkInstance.getCurrencyAPI().getCurrencyList(
                 "usd",
                 "market_cap_desc",
                 100,
                 1);
 
-        call.enqueue(new Callback<ModelCryptocurrency>() {
+        call.enqueue(new Callback<ArrayList<ModelCryptocurrency>>() {
             @Override
-            public void onResponse(Call<ModelCryptocurrency> call, Response<ModelCryptocurrency> response) {
-                ModelCryptocurrency model = response.body();
-
+            public void onResponse(Call<ArrayList<ModelCryptocurrency>> call, Response<ArrayList<ModelCryptocurrency>> response) {
+                Toast.makeText(MainActivity.this, "SUCCESS", Toast.LENGTH_SHORT).show();
+//                ArrayList<ModelCryptocurrency> cryptocurrencies = response.body();
+                adapterCryptoCurrency.refresh(response.body());
             }
 
             @Override
-            public void onFailure(Call<ModelCryptocurrency> call, Throwable t) {
-                Log.i("ALENA", "failure");
+            public void onFailure(Call<ArrayList<ModelCryptocurrency>> call, Throwable t) {
+                Toast.makeText(MainActivity.this, t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

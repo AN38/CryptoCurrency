@@ -28,12 +28,14 @@ public class VHCryptocurrency extends RecyclerView.ViewHolder {
         name = itemView.findViewById(R.id.tv_name);
         marketCap = itemView.findViewById(R.id.tv_market_cap);
         price = itemView.findViewById(R.id.tv_price);
+        templateCap = itemView.getContext().getString(R.string.market_cap);
+        templatePrice = itemView.getContext().getString(R.string.price);
     }
 
     public void bind(ModelCryptocurrency modelCryptocurrency) {
         Glide.with(itemView).load(modelCryptocurrency.getImageUrl()).into(currencyLogo);
 
-        String strMarketCap = String.format(templateCap,modelCryptocurrency.getMarketCap());
+        String strMarketCap = String.format(templateCap, modelCryptocurrency.getMarketCap());
         String strPrice = String.format(templatePrice,modelCryptocurrency.getCurrent_price());
 
         symbol.setText(modelCryptocurrency.getSymbol());
