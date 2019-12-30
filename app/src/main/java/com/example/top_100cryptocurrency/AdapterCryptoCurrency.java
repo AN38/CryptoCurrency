@@ -3,10 +3,8 @@ package com.example.top_100cryptocurrency;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.ArrayList;
 
 public class AdapterCryptoCurrency extends RecyclerView.Adapter<VHCryptocurrency> {
@@ -22,7 +20,6 @@ public class AdapterCryptoCurrency extends RecyclerView.Adapter<VHCryptocurrency
         this.modelCryptocurrencies.addAll(modelCryptocurrencies);
         notifyDataSetChanged();
     }
-
 
     @NonNull
     @Override

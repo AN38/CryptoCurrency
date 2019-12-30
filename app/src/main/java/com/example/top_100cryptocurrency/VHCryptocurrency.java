@@ -36,7 +36,7 @@ public class VHCryptocurrency extends RecyclerView.ViewHolder {
         Glide.with(itemView).load(modelCryptocurrency.getImageUrl()).into(currencyLogo);
 
         String strMarketCap = String.format(templateCap, modelCryptocurrency.getMarketCap());
-        String strPrice = String.format(templatePrice,modelCryptocurrency.getCurrent_price());
+        String strPrice = String.format(templatePrice,modelCryptocurrency.getCurrentPrice());
 
         symbol.setText(modelCryptocurrency.getSymbol());
         name.setText(modelCryptocurrency.getName());

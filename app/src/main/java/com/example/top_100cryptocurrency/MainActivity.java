@@ -18,11 +18,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
-    private static final String TAG = "MainActivity11";
 
     private RecyclerView recyclerView;
     private AdapterCryptoCurrency adapterCryptoCurrency;
-    private int errorText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ArrayList<ModelCryptocurrency>> call, Response<ArrayList<ModelCryptocurrency>> response) {
                 Toast.makeText(MainActivity.this, "SUCCESS", Toast.LENGTH_SHORT).show();
-//                ArrayList<ModelCryptocurrency> cryptocurrencies = response.body();
                 adapterCryptoCurrency.refresh(response.body());
             }
 

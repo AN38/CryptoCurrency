@@ -3,8 +3,6 @@ package com.example.top_100cryptocurrency;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
-
 public class ModelCryptocurrency {
     @SerializedName("image")
     @Expose
@@ -18,13 +16,13 @@ public class ModelCryptocurrency {
     @Expose
     private String name;
 
-    @SerializedName("maketCap")
+    @SerializedName("market_cap")
     @Expose
-    private int marketCap;
+    private long marketCap;
 
     @SerializedName("current_price")
     @Expose
-    private float current_price;
+    private float currentPrice;
 
     public String getImageUrl() {
         return imageUrl;
@@ -50,7 +48,7 @@ public class ModelCryptocurrency {
         this.name = name;
     }
 
-    public int getMarketCap() {
+    public long getMarketCap() {
         return marketCap;
     }
 
@@ -58,12 +56,12 @@ public class ModelCryptocurrency {
         this.marketCap = marketCap;
     }
 
-    public float getCurrent_price() {
-        return current_price;
+    public float getCurrentPrice() {
+        return currentPrice;
     }
 
-    public void setCurrent_price(float current_price) {
-        this.current_price = current_price;
+    public void setCurrentPrice(float currentPrice) {
+        this.currentPrice = currentPrice;
     }
 
     @Override
@@ -73,7 +71,8 @@ public class ModelCryptocurrency {
                 ", symbol='" + symbol + '\'' +
                 ", name='" + name + '\'' +
                 ", marketCap=" + marketCap +
-                ", current_price=" + current_price +
+                ", current_price=" + currentPrice +
                 '}';
     }
+
 }
