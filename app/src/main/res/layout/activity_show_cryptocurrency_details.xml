@@ -13,14 +13,25 @@
         android:background="@color/colorPrimary"
         app:layout_constraintTop_toTopOf="parent"/>
 
+    <ImageView
+        android:id="@+id/ic_arrow_back"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:src="@drawable/ic_arrow_back"
+        android:layout_margin="10dp"
+        />
+
     <TextView
         android:id="@+id/tv_currency_name"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/ic_arrow_back"
         android:textColor="#FFFFFF"
         android:textStyle="bold"
-        android:textSize="18sp"
+        android:textSize="20sp"
         android:padding="16dp"
         tools:text="Bitcoin"/>
 
@@ -45,6 +56,16 @@
         android:text="@string/MarketCapRank"/>
 
     <TextView
+        android:id="@+id/tv_market_cap_rank_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="1"/>
+
+    <TextView
         android:id="@+id/tv_change"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -53,6 +74,16 @@
         app:layout_constraintTop_toTopOf="@id/tv_market_cap_rank"
         app:layout_constraintStart_toEndOf="@+id/currency_logo"
         android:text="@string/mc_change"/>
+
+    <TextView
+        android:id="@+id/tv_change_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:textSize="14sp"
+        app:layout_constraintTop_toTopOf="@id/tv_market_cap_rank"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="0.05613"/>
 
     <TextView
         android:id="@+id/tv_ath"
@@ -65,6 +96,16 @@
         android:text="@string/ath"/>
 
     <TextView
+        android:id="@+id/tv_ath_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:textSize="14sp"
+        app:layout_constraintTop_toTopOf="@id/tv_change"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="19665.39"/>
+
+    <TextView
         android:id="@+id/tv_ath_change"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -73,6 +114,16 @@
         app:layout_constraintTop_toTopOf="@id/tv_ath"
         app:layout_constraintStart_toEndOf="@+id/currency_logo"
         android:text="@string/ath_change"/>
+
+    <TextView
+        android:id="@+id/tv_ath_change_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:textSize="14sp"
+        app:layout_constraintTop_toTopOf="@id/tv_ath"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="-59.68%"/>
 
     <TextView
         android:id="@+id/tv_circulating_supply"
@@ -85,6 +136,16 @@
         android:text="@string/circulating_supply"/>
 
     <TextView
+        android:id="@+id/tv_circulating_supply_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:textSize="14sp"
+        app:layout_constraintTop_toTopOf="@id/tv_ath_change"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="18152500"/>
+
+    <TextView
         android:id="@+id/tv_total_supply"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -93,6 +154,16 @@
         app:layout_constraintTop_toTopOf="@id/tv_circulating_supply"
         app:layout_constraintStart_toEndOf="@+id/currency_logo"
         android:text="@string/total_supply"/>
+
+    <TextView
+        android:id="@+id/tv_total_supply_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:textSize="14sp"
+        app:layout_constraintTop_toTopOf="@id/tv_circulating_supply"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="21000000"/>
 
     <ProgressBar
         android:layout_width="wrap_content"
