@@ -3,4 +3,10 @@
     <string name="market_cap">Market Cap: $%d</string>
     <string name="price">Price: $%f</string>
     <string name="onFailure">Bad request</string>
+    <string name="MarketCapRank">Market Cap Rank</string>
+    <string name="mc_change">MC change in 24h, %</string>
+    <string name="ath">All Time High (ATH)</string>
+    <string name="ath_change">ATH change, %</string>
+    <string name="circulating_supply">Circulating supply</string>
+    <string name="total_supply">Total supply</string>
 </resources>

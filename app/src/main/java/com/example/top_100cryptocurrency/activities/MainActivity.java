@@ -1,14 +1,15 @@
-package com.example.top_100cryptocurrency;
+package com.example.top_100cryptocurrency.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.TableRow;
 import android.widget.Toast;
 
+import com.example.top_100cryptocurrency.AdapterCryptoCurrency;
+import com.example.top_100cryptocurrency.ModelCryptocurrency;
+import com.example.top_100cryptocurrency.R;
 import com.example.top_100cryptocurrency.network.NetworkInstance;
 
 import java.util.ArrayList;
