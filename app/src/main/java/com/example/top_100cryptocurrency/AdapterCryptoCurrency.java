@@ -5,17 +5,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.top_100cryptocurrency.interfaces.OnClick;
+import com.example.top_100cryptocurrency.models.CryptocurrencyListModel;
+
 import java.util.ArrayList;
 
 public class AdapterCryptoCurrency extends RecyclerView.Adapter<VHCryptocurrency> {
 
-    ArrayList<ModelCryptocurrency> modelCryptocurrencies = new ArrayList<>();
+    ArrayList<CryptocurrencyListModel> modelCryptocurrencies = new ArrayList<>();
 
-    public AdapterCryptoCurrency(){
+    private OnClick listener;
 
+    public AdapterCryptoCurrency(OnClick listener){
+        this.listener = listener;
     }
 
-    public void refresh(ArrayList<ModelCryptocurrency> modelCryptocurrencies){
+    public void refresh(ArrayList<CryptocurrencyListModel> modelCryptocurrencies){
         this.modelCryptocurrencies.clear();
         this.modelCryptocurrencies.addAll(modelCryptocurrencies);
         notifyDataSetChanged();
@@ -30,7 +36,7 @@ public class AdapterCryptoCurrency extends RecyclerView.Adapter<VHCryptocurrency
 
     @Override
     public void onBindViewHolder(@NonNull VHCryptocurrency holder, int position) {
-        holder.bind(modelCryptocurrencies.get(position));
+        holder.bind(modelCryptocurrencies.get(position), listener);
     }
 
     @Override

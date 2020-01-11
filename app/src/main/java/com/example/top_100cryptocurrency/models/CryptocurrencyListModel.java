@@ -1,9 +1,14 @@
-package com.example.top_100cryptocurrency;
+package com.example.top_100cryptocurrency.models;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ModelCryptocurrency {
+public class CryptocurrencyListModel {
+
+    @SerializedName("id")
+    @Expose
+    private String id;
+
     @SerializedName("image")
     @Expose
     private String imageUrl;
@@ -23,6 +28,10 @@ public class ModelCryptocurrency {
     @SerializedName("current_price")
     @Expose
     private float currentPrice;
+
+    public String getId() {
+        return id;
+    }
 
     public String getImageUrl() {
         return imageUrl;
@@ -66,7 +75,7 @@ public class ModelCryptocurrency {
 
     @Override
     public String toString() {
-        return "ModelCryptocurrency{" +
+        return "CryptocurrencyListModel{" +
                 "imageUrl='" + imageUrl + '\'' +
                 ", symbol='" + symbol + '\'' +
                 ", name='" + name + '\'' +

@@ -8,6 +8,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.top_100cryptocurrency.interfaces.OnClick;
+import com.example.top_100cryptocurrency.models.CryptocurrencyListModel;
 
 public class VHCryptocurrency extends RecyclerView.ViewHolder {
 
@@ -32,15 +34,22 @@ public class VHCryptocurrency extends RecyclerView.ViewHolder {
         templatePrice = itemView.getContext().getString(R.string.price);
     }
 
-    public void bind(ModelCryptocurrency modelCryptocurrency) {
-        Glide.with(itemView).load(modelCryptocurrency.getImageUrl()).into(currencyLogo);
+    public void bind(final CryptocurrencyListModel cryptocurrencyListModel, final OnClick listener) {
+        Glide.with(itemView).load(cryptocurrencyListModel.getImageUrl()).into(currencyLogo);
 
-        String strMarketCap = String.format(templateCap, modelCryptocurrency.getMarketCap());
-        String strPrice = String.format(templatePrice,modelCryptocurrency.getCurrentPrice());
+        String strMarketCap = String.format(templateCap, cryptocurrencyListModel.getMarketCap());
+        String strPrice = String.format(templatePrice, cryptocurrencyListModel.getCurrentPrice());
 
-        symbol.setText(modelCryptocurrency.getSymbol());
-        name.setText(modelCryptocurrency.getName());
+        symbol.setText(cryptocurrencyListModel.getSymbol());
+        name.setText(cryptocurrencyListModel.getName());
         marketCap.setText(strMarketCap);
         price.setText(strPrice);
+
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onClick(cryptocurrencyListModel);
+            }
+        });
     }
 }
