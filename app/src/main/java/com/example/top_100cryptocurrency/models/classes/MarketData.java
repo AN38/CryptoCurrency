@@ -14,10 +14,10 @@ public class MarketData {
     private float marketCapChangePercentage;
 
     @SerializedName("total_supply")
-    private long totalSupply;
+    private float totalSupply;
 
     @SerializedName("circulating_supply")
-    private long circulatingSupply;
+    private float circulatingSupply;
 
     public MarketData(Ath ath, AthChangePercentage athChangePercentage, float marketCapChangePercentage, long totalSupply, long circulatingSupply) {
         this.ath = ath;
@@ -39,11 +39,11 @@ public class MarketData {
         return marketCapChangePercentage;
     }
 
-    public long getTotalSupply() {
+    public float getTotalSupply() {
         return totalSupply;
     }
 
-    public long getCirculatingSupply() {
+    public float getCirculatingSupply() {
         return circulatingSupply;
     }
 }
