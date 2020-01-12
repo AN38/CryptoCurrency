@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface CurrencyAPI {
@@ -20,5 +21,5 @@ public interface CurrencyAPI {
                                                              @Query("page") int page);
 
     @GET("v3/coins/{id}")
-    Call<ArrayList<CurrencyDetailsModel>> getCurrencyDetails(@Query("id") String id);
+    Call<CurrencyDetailsModel> getCurrencyDetails(@Path("id") String id);
 }

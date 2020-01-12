@@ -7,7 +7,7 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/currrency_logo"
+        android:id="@+id/currrency_logo_vh"
         android:layout_width="50dp"
         android:layout_height="50dp"
         tools:layout_width="50dp"
@@ -22,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/currrency_logo"
+        app:layout_constraintStart_toEndOf="@+id/currrency_logo_vh"
         android:textStyle="bold"
         android:textSize="16sp"
         tools:text="btc"
@@ -34,7 +34,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/tv_symbol"
-        app:layout_constraintStart_toEndOf="@+id/currrency_logo"
+        app:layout_constraintStart_toEndOf="@+id/currrency_logo_vh"
         android:textSize="14sp"
         tools:text="bitcoin"
         android:layout_margin="10dp"/>

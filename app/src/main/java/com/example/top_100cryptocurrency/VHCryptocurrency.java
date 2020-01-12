@@ -25,7 +25,7 @@ public class VHCryptocurrency extends RecyclerView.ViewHolder {
     public VHCryptocurrency(@NonNull View itemView) {
         super(itemView);
 
-        currencyLogo = itemView.findViewById(R.id.currrency_logo);
+        currencyLogo = itemView.findViewById(R.id.currrency_logo_vh);
         symbol = itemView.findViewById(R.id.tv_symbol);
         name = itemView.findViewById(R.id.tv_name);
         marketCap = itemView.findViewById(R.id.tv_market_cap);

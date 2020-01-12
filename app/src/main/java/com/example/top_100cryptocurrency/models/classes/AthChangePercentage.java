@@ -1,8 +1,11 @@
 package com.example.top_100cryptocurrency.models.classes;
 
+import com.google.gson.annotations.SerializedName;
+
 public class AthChangePercentage {
 
-    private float aed; //хз, что это
+    @SerializedName("aed")
+    private float aed;
 
     public AthChangePercentage(float aed){
         this.aed = aed;

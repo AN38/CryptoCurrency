@@ -4,16 +4,22 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.top_100cryptocurrency.R;
 import com.example.top_100cryptocurrency.interfaces.OnClick;
 import com.example.top_100cryptocurrency.models.CryptocurrencyListModel;
 import com.example.top_100cryptocurrency.models.CurrencyDetailsModel;
+import com.example.top_100cryptocurrency.models.classes.Ath;
+import com.example.top_100cryptocurrency.models.classes.AthChangePercentage;
+import com.example.top_100cryptocurrency.models.classes.CryptocurrencyLogo;
+import com.example.top_100cryptocurrency.models.classes.MarketData;
 import com.example.top_100cryptocurrency.network.NetworkInstance;
 
 import java.util.ArrayList;
@@ -29,17 +35,11 @@ public class ShowCryptocurrencyDetails extends AppCompatActivity {
     private ImageView arrowBack;
     private ImageView currencyLogo;
     private TextView title;
-    private TextView marketCapRank;
     private TextView marketCapRankValue;
-    private TextView change;
     private TextView changeValue;
-    private TextView ath;
     private TextView athValue;
-    private TextView athChange;
     private TextView athChangeValue;
-    private TextView circulatingSupply;
     private TextView circulatingSupplyValue;
-    private TextView totalSupply;
     private TextView totalSupplyValue;
     private ProgressBar progressBar;
 
@@ -50,22 +50,15 @@ public class ShowCryptocurrencyDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_cryptocurrency_details);
         arrowBack = findViewById(R.id.ic_arrow_back);
-        currencyLogo = findViewById(R.id.currrency_logo);
+        currencyLogo = findViewById(R.id.currency_logo_detail);
         title = findViewById(R.id.tv_currency_name);
-        marketCapRank = findViewById(R.id.tv_market_cap_rank);
         marketCapRankValue = findViewById(R.id.tv_market_cap_rank_value);
-        change = findViewById(R.id.tv_change);
         changeValue = findViewById(R.id.tv_change_value);
-        ath = findViewById(R.id.tv_ath);
         athValue = findViewById(R.id.tv_ath_value);
-        athChange = findViewById(R.id.tv_ath_change);
         athChangeValue = findViewById(R.id.tv_ath_change_value);
-        circulatingSupply = findViewById(R.id.tv_circulating_supply);
         circulatingSupplyValue = findViewById(R.id.tv_circulating_supply_value);
-        totalSupply = findViewById(R.id.tv_total_supply);
         totalSupplyValue = findViewById(R.id.tv_total_supply_value);
         progressBar = findViewById(R.id.progress_bar);
-        getCoinById();
         id = getIntent().getExtras().getString(COIN_ID);
         Toast.makeText(ShowCryptocurrencyDetails.this, String.valueOf(id), Toast.LENGTH_SHORT).show();
         arrowBack.setOnClickListener(new View.OnClickListener() {
@@ -75,20 +68,34 @@ public class ShowCryptocurrencyDetails extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        getCoinById();
     }
     private void getCoinById() {
         NetworkInstance networkInstance = NetworkInstance.getInstance();
-        Call<ArrayList<CurrencyDetailsModel>> call = networkInstance.getCurrencyAPI().getCurrencyDetails(id);
+        Call<CurrencyDetailsModel> call = networkInstance.getCurrencyAPI().getCurrencyDetails(id);
 
-        call.enqueue(new Callback<ArrayList<CurrencyDetailsModel>>() {
+        call.enqueue(new Callback<CurrencyDetailsModel>() {
             @Override
-            public void onResponse(Call<ArrayList<CurrencyDetailsModel>> call, Response<ArrayList<CurrencyDetailsModel>> response) {
-                response.body();
+            public void onResponse(Call<CurrencyDetailsModel> call, Response<CurrencyDetailsModel> response) {
                 progressBar.setVisibility(View.GONE);
+                CurrencyDetailsModel currencyDetailsModel = response.body();
+                title.setText(currencyDetailsModel.getName());
+                marketCapRankValue.setText(String.valueOf(currencyDetailsModel.getMarketCapRank()));
+                MarketData marketData = currencyDetailsModel.getMarketData();
+                Ath ath = marketData.getAth();
+                athValue.setText(String.valueOf(ath.getBmd()));
+                AthChangePercentage athChangePercentage = marketData.getAthChangePercentage();
+                athChangeValue.setText(String.valueOf(athChangePercentage.getAed()));
+                changeValue.setText(String.valueOf(marketData.getMarketCapChangePercentage()));
+                totalSupplyValue.setText(String.valueOf(marketData.getTotalSupply()));
+                circulatingSupplyValue.setText(String.valueOf(marketData.getCirculatingSupply()));
+                CryptocurrencyLogo cryptocurrencyLogo = currencyDetailsModel.getImage();
+                Glide.with(ShowCryptocurrencyDetails.this).load(cryptocurrencyLogo.getImageLarge()).into(currencyLogo);
             }
 
             @Override
-            public void onFailure(Call<ArrayList<CurrencyDetailsModel>> call, Throwable t) {
+            public void onFailure(Call<CurrencyDetailsModel> call, Throwable t) {
+                Log.e("myDetails",t.getLocalizedMessage());
                 Toast.makeText(ShowCryptocurrencyDetails.this, t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
             }
         });
