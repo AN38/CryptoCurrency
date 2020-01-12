@@ -1,6 +1,7 @@
 package com.example.top_100cryptocurrency.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private AdapterCryptoCurrency adapterCryptoCurrency;
     public static final String COIN_ID = "COIN_ID";
     private ProgressBar progressBar;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +49,12 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapterCryptoCurrency);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         progressBar = findViewById(R.id.progress_bar);
+
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        toolbar.setTitle(R.string.app_name);
         getRequestedList();
     }
 

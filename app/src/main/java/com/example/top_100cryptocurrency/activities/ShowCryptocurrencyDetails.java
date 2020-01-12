@@ -1,6 +1,7 @@
 package com.example.top_100cryptocurrency.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,8 +23,6 @@ import com.example.top_100cryptocurrency.models.classes.CryptocurrencyLogo;
 import com.example.top_100cryptocurrency.models.classes.MarketData;
 import com.example.top_100cryptocurrency.network.NetworkInstance;
 
-import java.util.ArrayList;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -32,9 +31,8 @@ import static com.example.top_100cryptocurrency.activities.MainActivity.COIN_ID;
 
 public class ShowCryptocurrencyDetails extends AppCompatActivity {
 
-    private ImageView arrowBack;
+    private Toolbar toolbar;
     private ImageView currencyLogo;
-    private TextView title;
     private TextView marketCapRankValue;
     private TextView changeValue;
     private TextView athValue;
@@ -49,9 +47,14 @@ public class ShowCryptocurrencyDetails extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_cryptocurrency_details);
-        arrowBack = findViewById(R.id.ic_arrow_back);
+
+        toolbar = findViewById(R.id.toolbar_detail);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         currencyLogo = findViewById(R.id.currency_logo_detail);
-        title = findViewById(R.id.tv_currency_name);
         marketCapRankValue = findViewById(R.id.tv_market_cap_rank_value);
         changeValue = findViewById(R.id.tv_change_value);
         athValue = findViewById(R.id.tv_ath_value);
@@ -61,13 +64,7 @@ public class ShowCryptocurrencyDetails extends AppCompatActivity {
         progressBar = findViewById(R.id.progress_bar);
         id = getIntent().getExtras().getString(COIN_ID);
         Toast.makeText(ShowCryptocurrencyDetails.this, String.valueOf(id), Toast.LENGTH_SHORT).show();
-        arrowBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ShowCryptocurrencyDetails.this, MainActivity.class);
-                startActivity(intent);
-            }
-        });
+
         getCoinById();
     }
     private void getCoinById() {
@@ -79,7 +76,7 @@ public class ShowCryptocurrencyDetails extends AppCompatActivity {
             public void onResponse(Call<CurrencyDetailsModel> call, Response<CurrencyDetailsModel> response) {
                 progressBar.setVisibility(View.GONE);
                 CurrencyDetailsModel currencyDetailsModel = response.body();
-                title.setText(currencyDetailsModel.getName());
+                toolbar.setTitle(currencyDetailsModel.getName());
                 marketCapRankValue.setText(String.valueOf(currencyDetailsModel.getMarketCapRank()));
                 MarketData marketData = currencyDetailsModel.getMarketData();
                 Ath ath = marketData.getAth();
@@ -99,5 +96,11 @@ public class ShowCryptocurrencyDetails extends AppCompatActivity {
                 Toast.makeText(ShowCryptocurrencyDetails.this, t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }

@@ -7,40 +7,18 @@
     tools:context=".activities.ShowCryptocurrencyDetails">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+        android:id="@+id/toolbar_detail"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="?attr/actionBarSize"
         android:background="@color/colorPrimary"
         app:layout_constraintTop_toTopOf="parent"/>
-
-    <ImageView
-        android:id="@+id/ic_arrow_back"
-        android:layout_width="34dp"
-        android:layout_height="34dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:src="@drawable/ic_arrow_back"
-        android:layout_margin="10dp"
-        />
-
-    <TextView
-        android:id="@+id/tv_currency_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@id/ic_arrow_back"
-        android:textColor="#FFFFFF"
-        android:textStyle="bold"
-        android:textSize="20sp"
-        android:padding="16dp"
-        tools:text="Bitcoin"/>
 
 
     <ImageView
         android:id="@+id/currency_logo_detail"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_detail"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_margin="20dp"
         tools:src="@drawable/currency_template_image"/>
@@ -51,7 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:textSize="14sp"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_detail"
         app:layout_constraintStart_toEndOf="@+id/currency_logo_detail"
         android:text="@string/MarketCapRank"/>
 
@@ -61,7 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:textSize="14sp"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_detail"
         app:layout_constraintEnd_toEndOf="parent"
         tools:text="1"/>
 
