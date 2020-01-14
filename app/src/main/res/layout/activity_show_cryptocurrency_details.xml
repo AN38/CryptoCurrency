@@ -71,7 +71,7 @@
         android:textSize="14sp"
         app:layout_constraintTop_toTopOf="@id/tv_change"
         app:layout_constraintStart_toEndOf="@+id/currency_logo_detail"
-        android:text="@string/ath"/>
+        android:text="@string/athModel"/>
 
     <TextView
         android:id="@+id/tv_ath_value"

@@ -5,8 +5,11 @@
     <string name="onFailure">Bad request</string>
     <string name="MarketCapRank">Market Cap Rank</string>
     <string name="mc_change">MC change in 24h, %</string>
-    <string name="ath">All Time High (ATH)</string>
+    <string name="athModel">All Time High (ATH)</string>
     <string name="ath_change">ATH change, %</string>
     <string name="circulating_supply">Circulating supply</string>
     <string name="total_supply">Total supply</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

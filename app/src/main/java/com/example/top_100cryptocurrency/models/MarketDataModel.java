@@ -1,14 +1,16 @@
-package com.example.top_100cryptocurrency.models.classes;
+package com.example.top_100cryptocurrency.models;
 
+import com.example.top_100cryptocurrency.models.AthChangePercentageModel;
+import com.example.top_100cryptocurrency.models.AthModel;
 import com.google.gson.annotations.SerializedName;
 
-public class MarketData {
+public class MarketDataModel {
 
-    @SerializedName("ath")
-    private Ath ath;
+    @SerializedName("athModel")
+    private AthModel athModel;
 
     @SerializedName("ath_change_percentage")
-    private AthChangePercentage athChangePercentage;
+    private AthChangePercentageModel athChangePercentageModel;
 
     @SerializedName("market_cap_change_percentage_24h")
     private float marketCapChangePercentage;
@@ -19,20 +21,20 @@ public class MarketData {
     @SerializedName("circulating_supply")
     private float circulatingSupply;
 
-    public MarketData(Ath ath, AthChangePercentage athChangePercentage, float marketCapChangePercentage, long totalSupply, long circulatingSupply) {
-        this.ath = ath;
-        this.athChangePercentage = athChangePercentage;
+    public MarketDataModel(AthModel athModel, AthChangePercentageModel athChangePercentageModel, float marketCapChangePercentage, long totalSupply, long circulatingSupply) {
+        this.athModel = athModel;
+        this.athChangePercentageModel = athChangePercentageModel;
         this.marketCapChangePercentage = marketCapChangePercentage;
         this.totalSupply = totalSupply;
         this.circulatingSupply = circulatingSupply;
     }
 
-    public Ath getAth() {
-        return ath;
+    public AthModel getAthModel() {
+        return athModel;
     }
 
-    public AthChangePercentage getAthChangePercentage() {
-        return athChangePercentage;
+    public AthChangePercentageModel getAthChangePercentageModel() {
+        return athChangePercentageModel;
     }
 
     public float getMarketCapChangePercentage() {

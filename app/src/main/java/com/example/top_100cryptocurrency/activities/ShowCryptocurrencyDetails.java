@@ -3,7 +3,6 @@ package com.example.top_100cryptocurrency.activities;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,13 +13,11 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.top_100cryptocurrency.R;
-import com.example.top_100cryptocurrency.interfaces.OnClick;
-import com.example.top_100cryptocurrency.models.CryptocurrencyListModel;
 import com.example.top_100cryptocurrency.models.CurrencyDetailsModel;
-import com.example.top_100cryptocurrency.models.classes.Ath;
-import com.example.top_100cryptocurrency.models.classes.AthChangePercentage;
-import com.example.top_100cryptocurrency.models.classes.CryptocurrencyLogo;
-import com.example.top_100cryptocurrency.models.classes.MarketData;
+import com.example.top_100cryptocurrency.models.AthModel;
+import com.example.top_100cryptocurrency.models.AthChangePercentageModel;
+import com.example.top_100cryptocurrency.models.CryptocurrencyLogoModel;
+import com.example.top_100cryptocurrency.models.MarketDataModel;
 import com.example.top_100cryptocurrency.network.NetworkInstance;
 
 import retrofit2.Call;
@@ -78,16 +75,16 @@ public class ShowCryptocurrencyDetails extends AppCompatActivity {
                 CurrencyDetailsModel currencyDetailsModel = response.body();
                 toolbar.setTitle(currencyDetailsModel.getName());
                 marketCapRankValue.setText(String.valueOf(currencyDetailsModel.getMarketCapRank()));
-                MarketData marketData = currencyDetailsModel.getMarketData();
-                Ath ath = marketData.getAth();
-                athValue.setText(String.valueOf(ath.getBmd()));
-                AthChangePercentage athChangePercentage = marketData.getAthChangePercentage();
-                athChangeValue.setText(String.valueOf(athChangePercentage.getAed()));
-                changeValue.setText(String.valueOf(marketData.getMarketCapChangePercentage()));
-                totalSupplyValue.setText(String.valueOf(marketData.getTotalSupply()));
-                circulatingSupplyValue.setText(String.valueOf(marketData.getCirculatingSupply()));
-                CryptocurrencyLogo cryptocurrencyLogo = currencyDetailsModel.getImage();
-                Glide.with(ShowCryptocurrencyDetails.this).load(cryptocurrencyLogo.getImageLarge()).into(currencyLogo);
+                MarketDataModel marketDataModel = currencyDetailsModel.getMarketDataModel();
+                AthModel athModel = marketDataModel.getAthModel();
+                athValue.setText(String.valueOf(athModel.getBmd()));
+                AthChangePercentageModel athChangePercentageModel = marketDataModel.getAthChangePercentageModel();
+                athChangeValue.setText(String.valueOf(athChangePercentageModel.getAed()));
+                changeValue.setText(String.valueOf(marketDataModel.getMarketCapChangePercentage()));
+                totalSupplyValue.setText(String.valueOf(marketDataModel.getTotalSupply()));
+                circulatingSupplyValue.setText(String.valueOf(marketDataModel.getCirculatingSupply()));
+                CryptocurrencyLogoModel cryptocurrencyLogoModel = currencyDetailsModel.getImage();
+                Glide.with(ShowCryptocurrencyDetails.this).load(cryptocurrencyLogoModel.getImageLarge()).into(currencyLogo);
             }
 
             @Override

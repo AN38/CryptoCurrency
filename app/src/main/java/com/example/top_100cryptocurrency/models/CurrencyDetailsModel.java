@@ -1,7 +1,5 @@
 package com.example.top_100cryptocurrency.models;
 
-import com.example.top_100cryptocurrency.models.classes.CryptocurrencyLogo;
-import com.example.top_100cryptocurrency.models.classes.MarketData;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -17,11 +15,11 @@ public class CurrencyDetailsModel {
 
     @SerializedName("image")
     @Expose
-    private CryptocurrencyLogo image;
+    private CryptocurrencyLogoModel image;
 
     @SerializedName("market_data")
     @Expose
-    private MarketData marketData;
+    private MarketDataModel marketDataModel;
 
     public String getName() {
         return name;
@@ -31,11 +29,11 @@ public class CurrencyDetailsModel {
         return marketCapRank;
     }
 
-    public CryptocurrencyLogo getImage() {
+    public CryptocurrencyLogoModel getImage() {
         return image;
     }
 
-    public MarketData getMarketData() {
-        return marketData;
+    public MarketDataModel getMarketDataModel() {
+        return marketDataModel;
     }
 }

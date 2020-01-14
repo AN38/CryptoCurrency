@@ -1,13 +1,13 @@
-package com.example.top_100cryptocurrency.models.classes;
+package com.example.top_100cryptocurrency.models;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Ath {
+public class AthModel {
 
     @SerializedName("bmd")
     private float bmd; //название взято из api
 
-    public Ath(float bmd){
+    public AthModel(float bmd){
         this.bmd = bmd;
     }
 
