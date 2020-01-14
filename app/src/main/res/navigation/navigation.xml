@@ -16,11 +16,11 @@
     </fragment>
     <fragment
         android:id="@+id/cryptocurrencyDetails"
-        android:name="com.example.top_100cryptocurrency.fragments.CryptocurrencyDetails"
+        android:name="com.example.top_100cryptocurrency.fragments.CryptocurrencyDetailsFragment"
         android:label="fragment_cryptocurrency_details"
         tools:layout="@layout/fragment_cryptocurrency_details" >
-        <action
-            android:id="@+id/action_cryptocurrencyDetails_to_cryptocurrencyListFragment"
-            app:destination="@id/cryptocurrencyListFragment" />
+        <argument
+            android:name="coinId"
+            app:argType="string" />
     </fragment>
 </navigation>

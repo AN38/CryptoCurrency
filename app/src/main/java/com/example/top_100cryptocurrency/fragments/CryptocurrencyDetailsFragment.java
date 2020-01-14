@@ -1,11 +1,18 @@
-package com.example.top_100cryptocurrency.activities;
+package com.example.top_100cryptocurrency.fragments;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -13,10 +20,10 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.top_100cryptocurrency.R;
-import com.example.top_100cryptocurrency.models.CurrencyDetailsModel;
-import com.example.top_100cryptocurrency.models.AthModel;
 import com.example.top_100cryptocurrency.models.AthChangePercentageModel;
+import com.example.top_100cryptocurrency.models.AthModel;
 import com.example.top_100cryptocurrency.models.CryptocurrencyLogoModel;
+import com.example.top_100cryptocurrency.models.CurrencyDetailsModel;
 import com.example.top_100cryptocurrency.models.MarketDataModel;
 import com.example.top_100cryptocurrency.network.NetworkInstance;
 
@@ -24,9 +31,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.example.top_100cryptocurrency.activities.MainActivity.COIN_ID;
+import static com.example.top_100cryptocurrency.fragments.CryptocurrencyListFragment.COIN_ID;
 
-public class ShowCryptocurrencyDetails extends AppCompatActivity {
+public class CryptocurrencyDetailsFragment extends Fragment {
 
     private Toolbar toolbar;
     private ImageView currencyLogo;
@@ -40,30 +47,42 @@ public class ShowCryptocurrencyDetails extends AppCompatActivity {
 
     private String id;
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_show_cryptocurrency_details);
-
-        toolbar = findViewById(R.id.toolbar_detail);
-        setSupportActionBar(toolbar);
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-
-        currencyLogo = findViewById(R.id.currency_logo_detail);
-        marketCapRankValue = findViewById(R.id.tv_market_cap_rank_value);
-        changeValue = findViewById(R.id.tv_change_value);
-        athValue = findViewById(R.id.tv_ath_value);
-        athChangeValue = findViewById(R.id.tv_ath_change_value);
-        circulatingSupplyValue = findViewById(R.id.tv_circulating_supply_value);
-        totalSupplyValue = findViewById(R.id.tv_total_supply_value);
-        progressBar = findViewById(R.id.progress_bar);
-        id = getIntent().getExtras().getString(COIN_ID);
-        Toast.makeText(ShowCryptocurrencyDetails.this, String.valueOf(id), Toast.LENGTH_SHORT).show();
-
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_cryptocurrency_details, container, false);
+        toolbar = view.findViewById(R.id.toolbar_detail);
+        id = getArguments().getString(COIN_ID);
+        currencyLogo = view.findViewById(R.id.currency_logo_detail);
+        marketCapRankValue = view.findViewById(R.id.tv_market_cap_rank_value);
+        changeValue = view.findViewById(R.id.tv_change_value);
+        athValue = view.findViewById(R.id.tv_ath_value);
+        athChangeValue = view.findViewById(R.id.tv_ath_change_value);
+        circulatingSupplyValue = view.findViewById(R.id.tv_circulating_supply_value);
+        totalSupplyValue = view.findViewById(R.id.tv_total_supply_value);
+        progressBar = view.findViewById(R.id.progress_bar);
         getCoinById();
+        return view;
     }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                getActivity().onBackPressed();
+            }
+        });
+
+    }
+
     private void getCoinById() {
         NetworkInstance networkInstance = NetworkInstance.getInstance();
         Call<CurrencyDetailsModel> call = networkInstance.getCurrencyAPI().getCurrencyDetails(id);
@@ -84,20 +103,19 @@ public class ShowCryptocurrencyDetails extends AppCompatActivity {
                 totalSupplyValue.setText(String.valueOf(marketDataModel.getTotalSupply()));
                 circulatingSupplyValue.setText(String.valueOf(marketDataModel.getCirculatingSupply()));
                 CryptocurrencyLogoModel cryptocurrencyLogoModel = currencyDetailsModel.getImage();
-                Glide.with(ShowCryptocurrencyDetails.this).load(cryptocurrencyLogoModel.getImageLarge()).into(currencyLogo);
+                Glide.with(getContext()).load(cryptocurrencyLogoModel.getImageLarge()).into(currencyLogo);
             }
 
             @Override
             public void onFailure(Call<CurrencyDetailsModel> call, Throwable t) {
                 Log.e("myDetails",t.getLocalizedMessage());
-                Toast.makeText(ShowCryptocurrencyDetails.this, t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    @Override
-    public boolean onSupportNavigateUp() {
-        onBackPressed();
-        return true;
-    }
+//    @Override
+//    public boolean onSupportNavigateUp() { onBackPressed();
+//        return true;
+//    }
 }

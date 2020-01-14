@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class MarketDataModel {
 
-    @SerializedName("athModel")
+    @SerializedName("ath")
     private AthModel athModel;
 
     @SerializedName("ath_change_percentage")
