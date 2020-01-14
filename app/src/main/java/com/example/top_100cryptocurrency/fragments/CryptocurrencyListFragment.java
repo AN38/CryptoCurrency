@@ -1,111 +1,96 @@
 package com.example.top_100cryptocurrency.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
+import com.example.top_100cryptocurrency.AdapterCryptoCurrency;
 import com.example.top_100cryptocurrency.R;
+import com.example.top_100cryptocurrency.activities.MainActivity;
+import com.example.top_100cryptocurrency.activities.ShowCryptocurrencyDetails;
+import com.example.top_100cryptocurrency.interfaces.OnClick;
+import com.example.top_100cryptocurrency.models.CryptocurrencyListModel;
+import com.example.top_100cryptocurrency.network.NetworkInstance;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link CryptocurrencyListFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link CryptocurrencyListFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class CryptocurrencyListFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    private OnFragmentInteractionListener mListener;
-
-    public CryptocurrencyListFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment CryptocurrencyListFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static CryptocurrencyListFragment newInstance(String param1, String param2) {
-        CryptocurrencyListFragment fragment = new CryptocurrencyListFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    private RecyclerView recyclerView;
+    private AdapterCryptoCurrency adapterCryptoCurrency;
+    public static final String COIN_ID = "COIN_ID";
+    private ProgressBar progressBar;
+    private Toolbar toolbar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_cryptocurrency_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_cryptocurrency_list, container, false);
+        OnClick onClick = new OnClick() {
+            @Override
+            public void onClick(CryptocurrencyListModel cryptocurrencyListModel) {
+                Intent intent = new Intent();
+                intent.putExtra(COIN_ID, cryptocurrencyListModel.getId());
+                startActivity(intent);
+                NavController navController = Navigation.findNavController(getActivity(), R.id.main_nav_host_fragment);
+                navController.navigate(R.id.action_cryptocurrencyListFragment_to_cryptocurrencyDetails);
+            }
+        };
+        return view;
+
+        adapterCryptoCurrency = new AdapterCryptoCurrency(listener);
+        recyclerView = findViewById(R.id.recycler);
+        recyclerView.setAdapter(adapterCryptoCurrency);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        progressBar = findViewById(R.id.progress_bar);
+
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        toolbar.setTitle(R.string.app_name);
+        getRequestedList();
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
+    private void getRequestedList() {
+        NetworkInstance networkInstance = NetworkInstance.getInstance();
+        Call<ArrayList<CryptocurrencyListModel>> call = networkInstance.getCurrencyAPI().getCurrencyList(
+                "usd",
+                "market_cap_desc",
+                100,
+                1);
+
+        call.enqueue(new Callback<ArrayList<CryptocurrencyListModel>>() {
+            @Override
+            public void onResponse(Call<ArrayList<CryptocurrencyListModel>> call, Response<ArrayList<CryptocurrencyListModel>> response) {
+//                Toast.makeText(CryptocurrencyListFragment.this, "SUCCESS", Toast.LENGTH_SHORT).show();
+                adapterCryptoCurrency.refresh(response.body());
+                progressBar.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<CryptocurrencyListModel>> call, Throwable t) {
+//                Toast.makeText(CryptocurrencyListFragment.this, t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }
 }
